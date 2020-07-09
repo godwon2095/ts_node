@@ -9,7 +9,7 @@ adminRouter.get('/', (req: express.Request, res: express.Response) => {
 adminRouter.get('/products', (req: express.Request, res: express.Response) => {
   res.render('admin/products.html', {
     message: 'hello~',
-    online: 'express'
+    online: '<h1>fdsfsd</h1>'
   });
 });
 

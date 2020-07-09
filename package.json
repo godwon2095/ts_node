@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon -e js,html --exec 'ts-node' src/index.ts"
+    "start": "npx nodemon -e html,ts --exec ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",

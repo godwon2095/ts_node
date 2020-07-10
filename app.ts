@@ -39,7 +39,7 @@ class App {
   }
 
   setViewEngine() {
-    nunjucks.configure('template', {
+    nunjucks.configure('templates', {
       autoescape: true,
       express: this.app
     });
@@ -63,13 +63,14 @@ class App {
   }
 
   status404() {        
-    this.app.use( ( req: express.Request, res: express.Response, _: any ) => {
+    this.app.use( ( req: express.Request, res: express.Response, _: null ) => {
       res.status(404).render('common/404.html')
     });
   }
 
   errorHandler() {
-    this.app.use( (err: any, req: express.Request, res: express.Response, _: any ) => {
+    this.app.use( (err: string, req: express.Request, res: express.Response, _: null ) => {
+      console.error(err);
       res.status(500).render('common/500.html')
     });
   }

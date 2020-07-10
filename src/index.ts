@@ -28,6 +28,11 @@ app.use( bodyParser.urlencoded({ extended: false }));
 
 app.use( '/uploads', express.static('uploads') );
 
+app. use( (req: express.Request, res: express.Response, next: any) => {
+  app.locals.isLogin = true;
+  next();
+});
+
 app.get('/', (req: express.Request , res: express.Response) => {
   res.send('hello express');
 });

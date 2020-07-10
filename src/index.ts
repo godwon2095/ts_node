@@ -28,8 +28,9 @@ app.use( bodyParser.urlencoded({ extended: false }));
 
 app.use( '/uploads', express.static('uploads') );
 
-app. use( (req: express.Request, res: express.Response, next: any) => {
+app.use( (req: express.Request, res: express.Response, next: any) => {
   app.locals.isLogin = true;
+  app.locals.req_path = req.path;
   next();
 });
 
@@ -43,7 +44,15 @@ const adminMiddleware = (req: express.Request, res: express.Response, next: any)
 }
 
 app.use('/admin', adminMiddleware, adminRouter);
+
 app.use('/contacts', contactRouter);
+
+app.use( (req: express.Request, res: express.Response, _) => {
+  res.status(400).render('common/404.html');
+});
+app.use( (req: express.Request, res: express.Response, _) => {
+  res.status(500).render('common/500.html');
+});
 
 app.listen(port, () => {
   console.log(`Express server opened on port ${port}`);

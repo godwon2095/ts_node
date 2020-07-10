@@ -31,25 +31,25 @@ class App {
     this.errorHandler();
   }
 
-  setMiddleWare() {
+  private setMiddleWare() {
     // 미들웨어 셋팅
     this.app.use(morgan('dev'));
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
   }
 
-  setViewEngine() {
+  private setViewEngine() {
     nunjucks.configure('templates', {
       autoescape: true,
       express: this.app
     });
   }
 
-  setStatic() {
+  private setStatic() {
     this.app.use('/uploads', express.static('uploads'));
   }
 
-  setLocals() {
+  private setLocals() {
     // 템플릿 변수
     this.app.use( ( req: express.Request, res: express.Response, next: any) => {
       this.app.locals.isLogin = true;
@@ -58,17 +58,17 @@ class App {
     });
   }
 
-  getRouting() {
+  private getRouting() {
     this.app.use(router);
   }
 
-  status404() {        
+  private status404() {        
     this.app.use( ( req: express.Request, res: express.Response, _: null ) => {
       res.status(404).render('common/404.html')
     });
   }
 
-  errorHandler() {
+  private errorHandler() {
     this.app.use( (err: string, req: express.Request, res: express.Response, _: null ) => {
       console.error(err);
       res.status(500).render('common/500.html')

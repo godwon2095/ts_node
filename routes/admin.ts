@@ -11,10 +11,6 @@ const testMiddleWare2 = (req: express.Request, res: express.Response, next: any)
   next();
 };
 
-const loginRequired = (req: express.Request, res: express.Response, next: any) => {
-  
-}
-
 const adminRouter = express.Router();
 
 adminRouter.get('/', testMiddleWare, testMiddleWare2, (req: express.Request, res: express.Response) => {
@@ -22,11 +18,17 @@ adminRouter.get('/', testMiddleWare, testMiddleWare2, (req: express.Request, res
 });
 
 adminRouter.get('/products', (req: express.Request, res: express.Response) => {
-
-
   res.render('admin/products.html', {
     message: 'hello~',
   });
+});
+
+adminRouter.get('/products/write', (req: express.Request, res: express.Response) => {
+  res.render('admin/write.html');
+});
+
+adminRouter.post('/products/write', (req: express.Request, res: express.Response) => {
+  res.send(req.body);
 });
 
 export default adminRouter;

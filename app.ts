@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser';
 import router from './controllers';
 
 class App {
-  public app : express.Application;
+  public app: express.Application;
 
   constructor () {
     this.app = express();
@@ -49,7 +49,7 @@ class App {
     this.app.use('/uploads', express.static('uploads'));
   }
 
-  setLocals(){
+  setLocals() {
     // 템플릿 변수
     this.app.use( ( req: express.Request, res: express.Response, next: any) => {
       this.app.locals.isLogin = true;
@@ -58,7 +58,7 @@ class App {
     });
   }
 
-  getRouting (){
+  getRouting() {
     this.app.use(router);
   }
 
@@ -74,7 +74,7 @@ class App {
       res.status(500).render('common/500.html')
     });
   }
-}
+};
 
 // module.exports = new App().app;
 const app = new App().app;

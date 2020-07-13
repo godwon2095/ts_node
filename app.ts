@@ -3,12 +3,17 @@ import * as nunjucks from 'nunjucks';
 import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
 import router from './controllers';
+import db from './models';
 
 class App {
   public app: express.Application;
 
   constructor () {
     this.app = express();
+
+    // db 접속
+    this.dbConnection();
+
     // 뷰엔진 셋팅
     this.setViewEngine();
 
@@ -36,6 +41,20 @@ class App {
     this.app.use(morgan('dev'));
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
+  }
+
+  private dbConnection(){
+    // DB authentication
+    db.sequelize.authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .then(() => {
+        console.log('DB Sync complete.');
+    })
+    .catch((err: Error) => {
+        console.error('Unable to connect to the database:', err);
+    });
   }
 
   private setViewEngine() {
